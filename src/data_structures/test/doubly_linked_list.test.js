@@ -319,7 +319,7 @@ describe(DoublyLinkedList, () => {
       const elements = ['linked', 'list', 'elements'];
       const tickets = [];
       elements.forEach(el => tickets.push(dll.insertHead(el)));
-
+  
       expect(dll.remove(dll._sentinel)).toBe(undefined);
 
       const cb = jest.fn();

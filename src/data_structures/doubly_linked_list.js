@@ -31,24 +31,67 @@ class DoublyLinkedList {
   }
 
   insertHead(element) {
+    const node = new this.Node({element, next: this._head(), prev: this._sentinel});
+    this._head().prev = node;
+    this._sentinel.next = node;
+    return node;
   }
 
   insertTail(element) {
+    const node = new this.Node({element, next: this._sentinel, prev: this._tail()});
+    this._tail().next = node;
+    this._sentinel.prev = node;
+    return node;
   }
 
   removeHead() {
+    return this.remove(this._head());
+    // var node = this._head();
+    // this._sentinel.next = this._head().next;
+    // this._head().prev = this._sentinel;
+    // node._active = false;
+    // return node.element;
   }
 
   removeTail() {
+    return this.remove(this._tail());
+    // var node = this._tail();
+    // this._sentinel.prev = this._tail().prev;
+    // this._tail().next = this._sentinel;
+    // node._active = false;
+    // return node.element;
   }
 
   remove(node) {
+    if (!node._active)
+    {
+      return;
+    }
+    return node.remove();
   }
 
-  forEach(callback) {
+  forEach(callback, caller=this) {
+    var index = 0;
+    var node = this._head();
+    // var boundCallback = callback.bind(this);
+    while (node !== this._sentinel)
+    {
+      callback(node.element, index, caller);
+      index += 1;
+      node = node.next;
+    }
+    return;
   }
 
   count() {
+    var count = 0;
+    var node = this._head();
+    while (node !== this._sentinel)
+    {
+      count += 1;
+      node = node.next;
+    }
+    return count;
   }
 }
 
